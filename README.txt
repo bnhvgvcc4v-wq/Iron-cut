@@ -1,5 +1,7 @@
-IRON CUT V3 — animations d'exercices spécifiques
+IRON CUT V4 — démonstrations vidéo
 
-Remplacez les fichiers à la racine du dépôt GitHub Pages avec les fichiers de cette archive.
-Les démonstrations sont différenciées pour la presse poitrine, le tirage vertical, le rowing assis, la presse à cuisses, le squat et le gainage. Elles sont schématiques et éducatives.
+Remplacez les fichiers de la racine du dépôt GitHub Pages par ceux de cette archive.
+Dans l'onglet Sport, le bouton « Voir la vidéo » affiche une vraie vidéo de démonstration intégrée pour les exercices reconnus : presse poitrine, tirage vertical, rowing assis, presse à cuisses, squat, gainage, développé couché, épaules, leg curl et extension des jambes.
+La lecture vidéo nécessite une connexion Internet et peut dépendre des paramètres YouTube.
+Les vidéos sont intégrées depuis la bibliothèque Qmotion ; les droits restent à leurs éditeurs.
 Les données personnelles et journaux restent dans le stockage local du navigateur.

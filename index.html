@@ -82,7 +82,7 @@ footer{text-align:center;color:#777782;font-size:10px;padding:20px}
 </style>
 </head>
 <body>
-<header><div><div class="brand">IRON <span>CUT</span></div><div class="tag">TON ESPACE FITNESS PERSONNEL</div></div><div class="pill">V2.0</div></header>
+<header><div><div class="brand">IRON <span>CUT</span></div><div class="tag">TON ESPACE FITNESS PERSONNEL</div></div><div class="pill">V4.0</div></header>
 <main>
 <section id="home" class="view active">
  <div class="hero"><div class="kicker">OBJECTIF TRANSFORMATION</div><h1>ON LÂCHE RIEN.</h1><div class="big">TON <span class="red">→</span> OBJECTIF</div><p>Une progression régulière, de la force et de bonnes habitudes.</p><div class="between"><span class="muted">Calories du jour</span><b id="homeKcal">0 / — kcal</b></div><div class="progress"><i id="homeBar" style="width:0%"></i></div><button onclick="show('nutrition')">Ajouter un repas</button></div>
@@ -207,16 +207,29 @@ function exerciseInfo(name){
  if(/marche|vélo|cardio/.test(n)) return {kind:'squat',title:'Mouvement cardio',muscles:'Jambes et système cardiovasculaire',cue:'Garde une allure où tu peux encore parler. Augmente progressivement la durée.'};
  return {kind:'plank',title:'Mouvement contrôlé',muscles:'Muscles stabilisateurs',cue:'Commence léger, contrôle le mouvement et arrête en cas de douleur inhabituelle.'};
 }
-function demoSvg(kind){
- const svgs={
- chest:`<svg viewBox="0 0 300 180" role="img" aria-label="Presse poitrine assise animée"><path class="demo-machine" d="M52 150H248M88 50V145M212 50V145M88 50H212"/><path class="demo-person" d="M142 54L142 112L126 145M142 112L158 145"/><circle cx="142" cy="35" r="11" fill="#f5f5f6"/><path class="demo-person" d="M142 61L117 83L98 83"/><g class="demo-part press-arms"><path class="demo-person" d="M142 61L171 78L194 78M171 78L194 78"/><path class="demo-machine" d="M194 67V89M202 67V89"/></g><path class="demo-machine" d="M85 145H215"/></svg>`,
- latpull:`<svg viewBox="0 0 300 180" role="img" aria-label="Tirage vertical animé"><path class="demo-machine" d="M70 25V145M230 25V145M70 25H230M125 25V38M175 25V38M112 145H188"/><circle cx="150" cy="62" r="10" fill="#f5f5f6"/><path class="demo-person" d="M150 74V112L132 145M150 112L168 145"/><g class="demo-part pull-arms"><path class="demo-person" d="M150 80L115 58L105 39M150 80L185 58L195 39"/><path class="demo-machine" d="M100 39H200"/></g><path class="demo-machine" d="M105 145H195"/></svg>`,
- row:`<svg viewBox="0 0 300 180" role="img" aria-label="Rowing assis animé"><path class="demo-machine" d="M45 145H255M55 110H105V145M205 125H245"/><circle cx="112" cy="50" r="10" fill="#f5f5f6"/><path class="demo-person" d="M112 62L135 102L120 145M135 102L160 145"/><g class="demo-part row-arms"><path class="demo-person" d="M120 76L165 91L204 112M120 76L165 91L204 112"/><path class="demo-machine" d="M200 104L211 116M200 120L211 108"/></g><path class="demo-machine" d="M205 112L245 112"/></svg>`,
- legpress:`<svg viewBox="0 0 300 180" role="img" aria-label="Presse à cuisses animée"><path class="demo-machine" d="M35 145H265M60 35L245 35M60 35L60 145M245 35L245 145"/><path class="demo-machine" d="M205 28L255 28L255 55L205 55Z"/><circle cx="100" cy="77" r="10" fill="#f5f5f6"/><path class="demo-person" d="M100 88L130 112L120 145M130 112L155 145"/><g class="demo-part leg-press"><path class="demo-person" d="M130 112L185 75L215 53M130 112L190 112L215 53"/><path class="demo-machine" d="M215 35V70"/></g><path class="demo-machine" d="M82 145H165"/></svg>`,
- squat:`<svg viewBox="0 0 300 180" role="img" aria-label="Squat animé"><path class="demo-machine" d="M45 150H255"/><g class="demo-part squat-body"><circle cx="150" cy="34" r="11" fill="#f5f5f6"/><path class="demo-person" d="M150 46L150 91M150 57L119 78L105 65M150 57L181 78L195 65M150 91L125 132L111 145M150 91L175 132L190 145"/></g></svg>`,
- plank:`<svg viewBox="0 0 300 180" role="img" aria-label="Gainage avant animé"><path class="demo-machine" d="M35 145H265"/><circle cx="72" cy="93" r="10" fill="#f5f5f6"/><g class="demo-part plank-leg"><path class="demo-person" d="M82 96L150 103L220 113M150 103L130 140M220 113L236 140M110 100L96 135"/></g><path class="demo-person" d="M95 103L78 132"/></svg>`
- };
- return `<div class="demo-stage">${svgs[kind]||svgs.squat}</div>`;
+
+function videoInfo(name){
+ const n=name.toLowerCase();
+ if(/presse poitrine|chest press/.test(n)) return {id:'tfLET28B5bM',label:'Presse poitrine à la machine'};
+ if(/tirage vertical|lat pulldown/.test(n)) return {id:'D8b3OVbRfwE',label:'Tirage vertical'};
+ if(/rowing assis|rowing|tirage horizontal/.test(n)) return {id:'gmy4V8yJszs',label:'Rowing assis'};
+ if(/presse à cuisses|leg press/.test(n)) return {id:'hiI-JdtEGIs',label:'Presse à cuisses'};
+ if(/squat/.test(n)) return {id:'R0XCXM2bdXs',label:'Squat'};
+ if(/gainage|planche/.test(n)) return {id:'U4OX9fKDJU8',label:'Gainage avant'};
+ if(/développé couché|bench press/.test(n)) return {id:'t9Fc8HePijI',label:'Développé couché'};
+ if(/élévations latérales|shoulder press|développé militaire/.test(n)) return {id:'xDnOlHT950k',label:'Développé épaules à la machine'};
+ if(/leg curl|ischio/.test(n)) return {id:'rYon2i8I6C8',label:'Leg curl'};
+ if(/extension quadriceps|leg extension/.test(n)) return {id:'Dllq4Vd-Xek',label:'Extension des jambes'};
+ return null;
+}
+function demoVideo(name){
+ const v=videoInfo(name);
+ if(!v) return `<div class="demo-wrap"><p>Je n'ai pas encore de vidéo correspondant exactement à cet exercice.</p><a href="https://www.qmsu.org/qmotion/guides/" target="_blank" rel="noopener">Consulter la bibliothèque de démonstrations</a></div>`;
+ return `<div class="demo-wrap"><div class="demo-caption"><b>${v.label}</b></div>
+ <div style="position:relative;width:100%;aspect-ratio:16/9;background:#08080b;border-radius:10px;overflow:hidden">
+ <iframe src="https://www.youtube-nocookie.com/embed/${v.id}?rel=0" title="Démonstration vidéo : ${v.label}" style="position:absolute;inset:0;width:100%;height:100%;border:0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+ </div><p class="demo-cues">Regarde une première fois le mouvement complet, puis commence avec une charge légère. Si la vidéo ne se charge pas, ouvre-la sur YouTube.</p>
+ <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">Ouvrir la vidéo sur YouTube</a></div>`;
 }
 function toggleDemo(index){
  const el=document.getElementById('demo-'+index);
@@ -226,7 +239,7 @@ function toggleDemo(index){
 function renderWorkout(){
  let i=Number(document.getElementById('daySelect').value||0),p=plan[i];
  document.getElementById('workoutList').innerHTML=`<h2>${p.name}</h2>
- ${p.items.map((x,j)=>{let d=exerciseInfo(x);return `<div class="item"><div class="between"><b>• ${x}</b><button class="secondary smallbtn demo-btn" onclick="toggleDemo(${j})">Voir l’animation</button></div><div id="demo-${j}" class="demo-wrap" hidden>${demoSvg(d.kind)}<div class="demo-caption"><b>${d.title}</b> · ${d.muscles}</div><div class="demo-cues">${d.cue}</div><div class="muted">Animation pédagogique simplifiée : observe la position et le trajet du mouvement. Commence avec une charge légère.</div></div></div>`}).join('')}
+ ${p.items.map((x,j)=>{let d=exerciseInfo(x);return `<div class="item"><div class="between"><b>• ${x}</b><button class="secondary smallbtn demo-btn" onclick="toggleDemo(${j})">Voir la vidéo</button></div><div id="demo-${j}" class="demo-wrap" hidden>${demoVideo(x)}<div class="demo-caption"><b>${d.title}</b> · ${d.muscles}</div><div class="demo-cues">${d.cue}</div><div class="muted">Vidéo de démonstration. Commence avec une charge légère et respecte une amplitude confortable.</div></div></div>`}).join('')}
  <p class="muted">${data.completed.includes(p.day)?'Séance validée ✓':'Coche la séance une fois terminée.'}</p>`;
 }
 function finishWorkout(){let p=plan[Number(document.getElementById('daySelect').value||0)];if(!data.completed.includes(p.day))data.completed.push(p.day);save();renderWorkout()}
