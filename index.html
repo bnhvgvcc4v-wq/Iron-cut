@@ -82,11 +82,11 @@ footer{text-align:center;color:#777782;font-size:10px;padding:20px}
 </style>
 </head>
 <body>
-<header><div><div class="brand">IRON <span>CUT</span></div><div class="tag">TON ESPACE FITNESS PERSONNEL</div></div><div class="pill">V4.0</div></header>
+<header><div><div class="brand">IRON <span>CUT</span></div><div class="tag">TON ESPACE FITNESS PERSONNEL</div></div><div class="pill">V5.1</div></header>
 <main>
 <section id="home" class="view active">
- <div class="hero"><div class="kicker">OBJECTIF TRANSFORMATION</div><h1>ON LÂCHE RIEN.</h1><div class="big">TON <span class="red">→</span> OBJECTIF</div><p>Une progression régulière, de la force et de bonnes habitudes.</p><div class="between"><span class="muted">Calories du jour</span><b id="homeKcal">0 / — kcal</b></div><div class="progress"><i id="homeBar" style="width:0%"></i></div><button onclick="show('nutrition')">Ajouter un repas</button></div>
- <div class="grid"><div class="stat"><span class="muted">Poids actuel</span><strong id="homeWeight">— kg</strong></div><div class="stat"><span class="muted">Objectif</span><strong id="homeGoal">À définir</strong></div><div class="stat"><span class="muted">Protéines aujourd'hui</span><strong id="homeProtein">0 g</strong></div><div class="stat"><span class="muted">Séances cochées</span><strong id="homeSessions">0 / 5</strong></div></div>
+ <div class="hero"><div class="kicker">OBJECTIF TRANSFORMATION</div><h1>ON LÂCHE RIEN.</h1><div class="big">TON <span class="red">→</span> OBJECTIF</div><p>Une progression régulière, de la force et de bonnes habitudes.</p><button onclick="show('training')">Voir mon entraînement</button></div>
+ <div class="grid"><div class="stat"><span class="muted">Poids actuel</span><strong id="homeWeight">— kg</strong></div><div class="stat"><span class="muted">Objectif</span><strong id="homeGoal">À définir</strong></div><div class="stat"><span class="muted">Séances cochées</span><strong id="homeSessions">0 / 5</strong></div></div>
  <div class="card"><div class="between"><h2>Programme de la semaine</h2><span class="pill">Débutant</span></div><p>3 séances de musculation + 2 séances cardio/activité.</p><div id="homePlan"></div></div>
  <div class="card"><h2>Conseil du jour</h2><p id="dailyTip">Commence progressivement : la régularité compte davantage que l'intensité maximale.</p></div>
 </section>
@@ -94,12 +94,6 @@ footer{text-align:center;color:#777782;font-size:10px;padding:20px}
  <h1>Entraînement</h1><p>Un programme progressif adapté à un débutant en salle.</p>
  <div class="card"><label for="daySelect">Choisir une journée</label><select id="daySelect" onchange="renderWorkout()"></select><div id="workoutList"></div><button class="secondary" onclick="finishWorkout()">Valider cette séance</button></div>
  <div class="card"><h2>Repère de séance</h2><p>Échauffement 5–10 min, mouvements contrôlés, 2 séries au départ puis 3 si la récupération est bonne. Garde 2–3 répétitions « en réserve » et arrête si douleur inhabituelle.</p></div>
-</section>
-<section id="nutrition" class="view">
- <h1>Nutrition</h1><p>Tes objectifs sont calculés à partir de ton profil personnel.</p>
- <div class="card"><div class="between"><h2>Résumé du jour</h2><span id="dateLabel" class="muted"></span></div><div class="big"><span id="kcalTotal">0</span><span class="muted" style="font-size:15px"> / <span id="nutritionTarget">—</span> kcal</span></div><div class="progress"><i id="kcalBar" style="width:0%"></i></div><div class="grid"><div class="stat"><span class="muted">Protéines</span><strong id="pTotal">0 g</strong><span class="muted">Cible <span id="targetP">—</span> g</span></div><div class="stat"><span class="muted">Glucides</span><strong id="cTotal">0 g</strong><span class="muted">Repère <span id="targetC">—</span> g</span></div><div class="stat"><span class="muted">Lipides</span><strong id="fTotal">0 g</strong><span class="muted">Repère <span id="targetF">—</span> g</span></div><div class="stat"><span class="muted">Repas</span><strong id="mealCount">0</strong></div></div></div>
- <div class="card"><h2>Ajouter un aliment / repas</h2><label>Nom</label><input id="foodName" placeholder="Ex. Poulet, riz, skyr"><div class="row"><div><label>Calories</label><input id="foodKcal" type="number" min="0" placeholder="kcal"></div><div><label>Protéines (g)</label><input id="foodP" type="number" min="0" placeholder="g"></div></div><div class="row"><div><label>Glucides (g)</label><input id="foodC" type="number" min="0" placeholder="g"></div><div><label>Lipides (g)</label><input id="foodF" type="number" min="0" placeholder="g"></div></div><button onclick="addFood()">Enregistrer</button></div>
- <div class="card"><h2>Journal du jour</h2><div id="foodList" class="empty">Aucun aliment enregistré aujourd'hui.</div></div>
 </section>
 <section id="progress" class="view">
  <h1>Progression</h1><p>Observe la tendance, pas les variations d'une seule journée.</p>
@@ -109,20 +103,8 @@ footer{text-align:center;color:#777782;font-size:10px;padding:20px}
  <div class="card"><h2>Objectif</h2><p>Vise une évolution progressive. Une fourchette souvent raisonnable est d'environ 0,5 à 0,8 kg par semaine, à adapter avec un professionnel de santé et selon ta récupération.</p></div>
 </section>
 <section id="coach" class="view">
- <h1>Coach IRON CUT</h1><p>Conseils guidés pour organiser tes habitudes. Cette version fonctionne sans service IA externe.</p>
-
- <div class="card">
-  <h2>Mon profil personnel</h2>
-  <p>Renseigne tes données pour calculer une estimation de tes besoins. Ces informations restent dans le stockage local de ce navigateur ; elles ne sont pas envoyées à GitHub.</p>
-  <div class="row"><div><label for="profileSex">Sexe utilisé pour le calcul</label><select id="profileSex"><option value="male">Homme</option><option value="female">Femme</option></select></div><div><label for="profileAge">Âge (ans)</label><input id="profileAge" type="number" min="18" max="100" placeholder="Ex. 30"></div></div>
-  <div class="row"><div><label for="profileHeight">Taille (cm)</label><input id="profileHeight" type="number" min="120" max="230" placeholder="Ex. 180"></div><div><label for="profileWeight">Poids actuel (kg)</label><input id="profileWeight" type="number" min="35" max="300" step=".1" placeholder="Ex. 90"></div></div>
-  <div class="row"><div><label for="profileGoal">Poids objectif (kg)</label><input id="profileGoal" type="number" min="35" max="250" step=".1" placeholder="Ex. 75"></div><div><label for="profileActivity">Activité globale</label><select id="profileActivity"><option value="1.2">Plutôt sédentaire</option><option value="1.375" selected>Légèrement actif</option><option value="1.55">Modérément actif</option></select></div></div>
-  <button onclick="saveProfile()">Enregistrer mon profil</button>
-  <div id="profileResult" class="item muted">Complète ton profil pour obtenir tes repères personnalisés.</div>
- </div>
-
- <div class="card"><span class="pill">Coach de démarrage</span><h2>Ton profil</h2><p>Complète la rubrique « Mon profil personnel » ci-dessus pour personnaliser tes repères.</p><p><b>Les calories et macros sont estimées à partir de ton âge, ta taille, ton poids, ton objectif et ton activité. Réévalue-les après 2–3 semaines selon la tendance du poids, la faim, l'énergie et les performances.</p></div>
- <div class="card"><h2>Que veux-tu travailler ?</h2><div id="coachAnswers"></div><label>Ta question</label><input id="coachQuestion" placeholder="Ex. Comment organiser mon dîner ?"><button onclick="askCoach()">Demander un conseil</button><div id="coachReply" class="item" style="margin-top:12px">Choisis une question ou écris la tienne.</div></div>
+ <h1>Coach IRON CUT</h1><p>Conseils guidés pour progresser à l’entraînement et mieux récupérer. Cette version fonctionne sans service IA externe.</p>
+ <div class="card"><h2>Que veux-tu travailler ?</h2><div id="coachAnswers"></div><label>Ta question</label><input id="coachQuestion" placeholder="Ex. Comment améliorer ma technique ?"><button onclick="askCoach()">Demander un conseil</button><div id="coachReply" class="item" style="margin-top:12px">Choisis une question ou écris la tienne.</div></div>
  <div class="card"><h2>Important</h2><p>Le coach fournit des conseils généraux, pas un diagnostic ni un suivi médical. En cas de maladie, traitement, douleur ou antécédent, demande conseil à un professionnel de santé avant de modifier fortement ton alimentation ou ton activité.</p></div>
 </section>
 <footer>IRON CUT · Données enregistrées sur cet appareil</footer>
@@ -130,18 +112,17 @@ footer{text-align:center;color:#777782;font-size:10px;padding:20px}
 <nav>
 <button class="active" data-tab="home" onclick="show('home')"><b>⌂</b>Accueil</button>
 <button data-tab="training" onclick="show('training')"><b>▣</b>Sport</button>
-<button data-tab="nutrition" onclick="show('nutrition')"><b>♨</b>Nutrition</button>
 <button data-tab="progress" onclick="show('progress')"><b>↗</b>Suivi</button>
 <button data-tab="coach" onclick="show('coach')"><b>✦</b>Coach</button>
 </nav>
 <script>
 const KEY='ironcut_v1';
-const initial={foods:{},weights:[],completed:[],startWeight:null,profile:null,targets:null};
+const initial={weights:[],completed:[],startWeight:null,profile:null};
 let data=load();
 function load(){try{return {...initial,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return {...initial}}}
 function save(){localStorage.setItem(KEY,JSON.stringify(data));refresh()}
 function today(){return new Date().toISOString().slice(0,10)}
-function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));if(id==='training')renderWorkout();if(id==='nutrition')renderNutrition();if(id==='progress')renderProgress();if(id==='home')renderHome();if(id==='coach')renderProfile()}
+function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));if(id==='training')renderWorkout();if(id==='progress')renderProgress();if(id==='home')renderHome();if(id==='coach')renderProfile()}
 const plan=[
  {day:'Lundi',name:'Haut du corps A',items:['Presse poitrine machine · 2×10–12','Tirage vertical · 2×10–12','Rowing assis · 2×10–12','Développé épaules machine · 2×10','Marche facile · 10 min']},
  {day:'Mardi',name:'Cardio + mobilité',items:['Vélo ou marche · 20–30 min à allure confortable','Mobilité douce · 5–10 min']},
@@ -152,45 +133,7 @@ const plan=[
  {day:'Dimanche',name:'Repos',items:['Repos et récupération']}
 ];
 
-function getTargets(){
- const p=data.profile;if(!p)return null;
- const bmr=10*p.weight+6.25*p.height-5*p.age+(p.sex==='male'?5:-161);
- const tdee=bmr*p.activity;
- const kcal=Math.max(1500,Math.round((tdee-500)/50)*50);
- const protein=Math.round(p.goal*1.8),fat=Math.round(p.goal*.8);
- const carbs=Math.max(0,Math.round((kcal-protein*4-fat*9)/4));
- return {bmr:Math.round(bmr),tdee:Math.round(tdee),kcal,protein,fat,carbs};
-}
-function saveProfile(){
- const p={sex:document.getElementById('profileSex').value,
- age:Number(document.getElementById('profileAge').value),
- height:Number(document.getElementById('profileHeight').value),
- weight:Number(document.getElementById('profileWeight').value),
- goal:Number(document.getElementById('profileGoal').value),
- activity:Number(document.getElementById('profileActivity').value)};
- if(!p.age||p.age<18||p.age>100||!p.height||p.height<120||p.height>230||
-    !p.weight||p.weight<35||p.weight>300||!p.goal||p.goal<35||p.goal>250||p.goal>=p.weight){
-  alert('Vérifie les valeurs : âge 18–100 ans, taille 120–230 cm, poids valide et objectif inférieur au poids actuel.');return;
- }
- data.profile=p;if(data.startWeight===null)data.startWeight=p.weight;
- save();renderProfile();
-}
-function renderProfile(){
- const p=data.profile;
- if(p){
-  document.getElementById('profileSex').value=p.sex;
-  document.getElementById('profileAge').value=p.age;
-  document.getElementById('profileHeight').value=p.height;
-  document.getElementById('profileWeight').value=p.weight;
-  document.getElementById('profileGoal').value=p.goal;
-  document.getElementById('profileActivity').value=String(p.activity);
-  const t=getTargets();
-  document.getElementById('profileResult').textContent=`Estimation : métabolisme de base ${t.bmr} kcal · maintien ${t.tdee} kcal · objectif de départ ${t.kcal} kcal/jour.`;
- }else{
-  document.getElementById('profileResult').textContent='Complète ton profil pour obtenir tes repères personnalisés.';
- }
-}
-function setup(){let s=document.getElementById('daySelect');s.innerHTML=plan.map((p,i)=>`<option value="${i}">${p.day} — ${p.name}</option>`).join('');document.getElementById('dateLabel').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});document.getElementById('coachAnswers').innerHTML=['Comment composer une assiette équilibrée ?','Comment débuter le cardio ?','Comment progresser sans me blesser ?','Que faire si mon poids stagne ?'].map(q=>`<div class="item"><button class="secondary smallbtn" onclick="preset('${q.replace(/'/g,"\\'")}')">${q}</button></div>`).join('');refresh()}
+function setup(){let s=document.getElementById('daySelect');s.innerHTML=plan.map((p,i)=>`<option value="${i}">${p.day} — ${p.name}</option>`).join('');document.getElementById('coachAnswers').innerHTML=['Comment débuter le cardio ?','Comment progresser sans me blesser ?','Comment choisir ma charge ?','Comment mieux récupérer ?'].map(q=>`<div class="item"><button class="secondary smallbtn" onclick="preset('${q.replace(/'/g,"\\'")}')">${q}</button></div>`).join('');refresh()}
 
 
 function exerciseInfo(name){
@@ -243,21 +186,12 @@ function renderWorkout(){
  <p class="muted">${data.completed.includes(p.day)?'Séance validée ✓':'Coche la séance une fois terminée.'}</p>`;
 }
 function finishWorkout(){let p=plan[Number(document.getElementById('daySelect').value||0)];if(!data.completed.includes(p.day))data.completed.push(p.day);save();renderWorkout()}
-function dayFoods(){return data.foods[today()]||[]}
-function addFood(){let name=document.getElementById('foodName').value.trim(),k=Number(document.getElementById('foodKcal').value),p=Number(document.getElementById('foodP').value||0),c=Number(document.getElementById('foodC').value||0),f=Number(document.getElementById('foodF').value||0);if(!name||!Number.isFinite(k)||k<0){alert('Ajoute un nom et des calories valides.');return}data.foods[today()]=dayFoods().concat([{name,k,p,c,f}]);['foodName','foodKcal','foodP','foodC','foodF'].forEach(id=>document.getElementById(id).value='');save()}
-function renderNutrition(){let a=dayFoods(),sum=k=>a.reduce((s,x)=>s+(Number(x[k])||0),0),k=sum('k'),p=sum('p'),c=sum('c'),f=sum('f');document.getElementById('kcalTotal').textContent=Math.round(k);document.getElementById('pTotal').textContent=Math.round(p)+' g';document.getElementById('cTotal').textContent=Math.round(c)+' g';document.getElementById('fTotal').textContent=Math.round(f)+' g';document.getElementById('mealCount').textContent=a.length;let t=getTargets()||{kcal:2200,protein:160,carbs:230,fat:69};
-document.getElementById('nutritionTarget').textContent=t.kcal;
-document.getElementById('targetP').textContent=t.protein;
-document.getElementById('targetC').textContent=t.carbs;
-document.getElementById('targetF').textContent=t.fat;
-document.getElementById('kcalBar').style.width=Math.min(k/t.kcal*100,100)+'%';document.getElementById('foodList').className=a.length?'':'empty';document.getElementById('foodList').innerHTML=a.length?a.map((x,i)=>`<div class="item between"><div><b>${esc(x.name)}</b><div class="muted">${x.k} kcal · P ${x.p} g · G ${x.c} g · L ${x.f} g</div></div><button class="ghost smallbtn" onclick="removeFood(${i})">Retirer</button></div>`).join(''):'Aucun aliment enregistré aujourd’hui.'}
-function removeFood(i){data.foods[today()].splice(i,1);save()}
 function addWeight(){let v=Number(document.getElementById('weightInput').value);if(!v||v<30||v>300){alert('Entre un poids valide en kg.');return}data.weights.push({date:today(),value:v});document.getElementById('weightInput').value='';save()}
 function renderProgress(){let w=data.weights.slice().sort((a,b)=>a.date.localeCompare(b.date)),last=w[w.length-1]?.value??data.profile?.weight??null;document.getElementById('lastWeight').textContent=(last??'—')+' kg';let base=data.startWeight??w[0]?.value??null;document.getElementById('weightChange').textContent=(last!==null&&base!==null?((last-base>0?'+':'')+(last-base).toFixed(1)+' kg'):'—');document.getElementById('weightList').className=w.length?'':'empty';document.getElementById('weightList').innerHTML=w.length?w.slice().reverse().map(x=>`<div class="item between"><span>${new Date(x.date+'T12:00:00').toLocaleDateString('fr-FR')}</span><b>${x.value} kg</b></div>`).join(''):'Aucune pesée enregistrée.'}
 function preset(q){document.getElementById('coachQuestion').value=q;askCoach()}
-function askCoach(){let q=document.getElementById('coachQuestion').value.trim().toLowerCase(),r='';if(!q){r='Écris une question pour recevoir un conseil.'}else if(q.includes('assiette')||q.includes('repas')||q.includes('dîner'))r='Construis ton assiette autour d’une source de protéines (poisson, œufs, poulet, tofu ou légumineuses), de légumes, d’une portion de féculents et d’un peu de matière grasse. Ajuste les quantités à ta faim et à ton objectif.';else if(q.includes('cardio'))r='Commence par 20 minutes de marche ou de vélo à une intensité où tu peux encore parler. Augmente de 5 minutes lorsque tu récupères bien. Le cardio doit compléter la musculation, pas t’épuiser.';else if(q.includes('blesser')||q.includes('progresser'))r='Privilégie une amplitude confortable, un mouvement contrôlé et une charge qui te laisse 2 à 3 répétitions en réserve. Demande à un coach en salle de vérifier ta technique et arrête en cas de douleur.';else if(q.includes('stagne')||q.includes('poids'))r='Vérifie la tendance de tes pesées sur 2 à 3 semaines, dans des conditions similaires. Le poids varie avec l’eau, le sel et la digestion. Regarde aussi le tour de taille et tes performances avant de modifier tes apports.';else r='Je peux t’aider sur les bases de l’entraînement, de l’alimentation et de la récupération. Pour une réponse plus ciblée, précise ton contexte et tes habitudes. Cette version est un coach guidé, pas une IA connectée.';document.getElementById('coachReply').textContent=r}
-function renderHome(){let a=dayFoods(),k=a.reduce((s,x)=>s+x.k,0),p=a.reduce((s,x)=>s+x.p,0),last=data.weights.slice().sort((a,b)=>a.date.localeCompare(b.date)).at(-1)?.value??null;document.getElementById('homeKcal').textContent=Math.round(k)+' / <span id="nutritionTarget">—</span> kcal';document.getElementById('homeBar').style.width=Math.min(k/2200*100,100)+'%';document.getElementById('homeProtein').textContent=Math.round(p)+' g';document.getElementById('homeWeight').textContent=(last??data.profile?.weight??'—')+' kg';document.getElementById('homeSessions').textContent=data.completed.length+' / 5';document.getElementById('homePlan').innerHTML=plan.filter(x=>!['Jeudi','Dimanche'].includes(x.day)).map(x=>`<div class="item between"><span>${x.day} · ${x.name}</span><span>${data.completed.includes(x.day)?'✓':'○'}</span></div>`).join('')}
-function refresh(){renderNutrition();renderProgress();renderHome();if(document.getElementById('coach').classList.contains('active'))renderProfile();if(document.getElementById('training').classList.contains('active'))renderWorkout()}
+function askCoach(){let q=document.getElementById('coachQuestion').value.trim().toLowerCase(),r='';if(!q){r='Écris une question pour recevoir un conseil.'}else if(q.includes('cardio'))r='Commence par 20 minutes de marche ou de vélo à une intensité où tu peux encore parler. Augmente progressivement lorsque tu récupères bien.';else if(q.includes('charge'))r='Choisis une charge qui te permet de faire toutes les répétitions avec un mouvement contrôlé, en gardant 2 à 3 répétitions en réserve.';else if(q.includes('récup'))r='Laisse du temps aux muscles pour récupérer, dors suffisamment et évite de pousser jusqu’à l’épuisement à chaque série.';else if(q.includes('blesser')||q.includes('progresser')||q.includes('technique'))r='Privilégie une amplitude confortable, un mouvement contrôlé et une charge adaptée. Demande à un coach en salle de vérifier ta technique et arrête en cas de douleur.';else r='Je peux t’aider sur les bases de l’entraînement, de la technique et de la récupération. Cette version est un coach guidé, pas une IA connectée.';document.getElementById('coachReply').textContent=r}
+function renderHome(){let last=data.weights.slice().sort((a,b)=>a.date.localeCompare(b.date)).at(-1)?.value??null;document.getElementById('homeWeight').textContent=(last??'—')+' kg';document.getElementById('homeGoal').textContent=data.profile?.goal?data.profile.goal+' kg':'À définir';document.getElementById('homeSessions').textContent=data.completed.length+' / 5';document.getElementById('homePlan').innerHTML=plan.filter(x=>!['Jeudi','Dimanche'].includes(x.day)).map(x=>`<div class="item between"><span>${x.day} · ${x.name}</span><span>${data.completed.includes(x.day)?'✓':'○'}</span></div>`).join('')}
+function refresh(){renderProgress();renderHome();if(document.getElementById('training').classList.contains('active'))renderWorkout()}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 setup();
 if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
