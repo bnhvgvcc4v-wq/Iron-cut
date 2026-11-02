@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101014">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="IRON CUT">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>IRON CUT</title>
+<style>
+:root{color-scheme:dark;--bg:#101014;--panel:#1b1b21;--panel2:#24242b;--red:#f04444;--muted:#a6a6b0;--line:#34343d;--white:#f7f7f8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 calc(86px + env(safe-area-inset-bottom))}
+header{padding:18px 18px 12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#101014ed;backdrop-filter:blur(14px);z-index:3;border-bottom:1px solid #25252b}
+.brand{font-size:23px;font-weight:950;letter-spacing:1px}.brand span{color:var(--red)}.tag{font-size:10px;color:var(--muted);letter-spacing:1.5px}
+main{max-width:650px;margin:auto;padding:16px}.view{display:none}.view.active{display:block}
+h1{font-size:27px;line-height:1.1;margin:8px 0 6px}h2{font-size:18px;margin:4px 0 12px}h3{font-size:15px;margin:0 0 6px}
+p{color:var(--muted);line-height:1.45}.muted{color:var(--muted);font-size:12px}
+.card{background:var(--panel);border:1px solid #292930;border-radius:18px;padding:16px;margin:12px 0}
+.hero{background:linear-gradient(135deg,#291719,#17171d 65%);border:1px solid #51282c;border-radius:22px;padding:20px;margin:12px 0}
+.kicker{font-size:10px;letter-spacing:1.7px;color:#d5a0a0;font-weight:800}.big{font-size:36px;font-weight:900;margin:5px 0}.red{color:var(--red)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.stat{background:var(--panel2);padding:13px;border-radius:14px}.stat strong{display:block;font-size:22px;margin-top:5px}
+button,.btn{border:0;border-radius:12px;background:var(--red);color:white;font-weight:800;padding:12px 14px;font-size:14px;cursor:pointer}
+button.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--white)}button.ghost{background:transparent;border:1px solid var(--line);color:var(--white)}
+button:disabled{opacity:.45}
+input,select{width:100%;background:#111116;border:1px solid var(--line);border-radius:10px;padding:12px;color:white;font:inherit;margin:5px 0 12px}
+label{font-size:12px;color:var(--muted);display:block;margin-top:8px}
+.row{display:flex;gap:10px;align-items:center}.row>*{flex:1}.between{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.progress{height:9px;background:#383840;border-radius:9px;overflow:hidden;margin:8px 0}.progress i{display:block;height:100%;background:var(--red);border-radius:9px}
+.pill{display:inline-block;padding:6px 9px;border-radius:99px;background:#382124;color:#ffaaaa;font-size:11px;font-weight:800}
+.item{padding:12px 0;border-bottom:1px solid var(--line)}.item:last-child{border:0}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:5;background:#17171cf2;backdrop-filter:blur(18px);border-top:1px solid var(--line);padding:8px 5px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr)}
+nav button{background:transparent;color:#92929c;padding:7px 2px;font-size:10px;border-radius:10px}nav button b{display:block;font-size:19px;margin-bottom:3px}nav button.active{color:#ff6464;background:#321d20}
+.smallbtn{padding:8px 10px;font-size:12px}.empty{color:var(--muted);text-align:center;padding:18px 4px}
+footer{text-align:center;color:#777782;font-size:10px;padding:20px}
+</style>
+</head>
+<body>
+<header><div><div class="brand">IRON <span>CUT</span></div><div class="tag">TON ESPACE FITNESS PERSONNEL</div></div><div class="pill">V1.0</div></header>
+<main>
+<section id="home" class="view active">
+ <div class="hero"><div class="kicker">OBJECTIF TRANSFORMATION</div><h1>ON LÂCHE RIEN.</h1><div class="big">TON <span class="red">→</span> OBJECTIF</div><p>Une progression régulière, de la force et de bonnes habitudes.</p><div class="between"><span class="muted">Calories du jour</span><b id="homeKcal">0 / 2 200 kcal</b></div><div class="progress"><i id="homeBar" style="width:0%"></i></div><button onclick="show('nutrition')">Ajouter un repas</button></div>
+ <div class="grid"><div class="stat"><span class="muted">Poids actuel</span><strong id="homeWeight">— kg</strong></div><div class="stat"><span class="muted">Objectif</span><strong>À définir</strong></div><div class="stat"><span class="muted">Protéines aujourd'hui</span><strong id="homeProtein">0 g</strong></div><div class="stat"><span class="muted">Séances cochées</span><strong id="homeSessions">0 / 5</strong></div></div>
+ <div class="card"><div class="between"><h2>Programme de la semaine</h2><span class="pill">Débutant</span></div><p>3 séances de musculation + 2 séances cardio/activité.</p><div id="homePlan"></div></div>
+ <div class="card"><h2>Conseil du jour</h2><p id="dailyTip">Commence progressivement : la régularité compte davantage que l'intensité maximale.</p></div>
+</section>
+<section id="training" class="view">
+ <h1>Entraînement</h1><p>Un programme progressif adapté à un débutant en salle.</p>
+ <div class="card"><label for="daySelect">Choisir une journée</label><select id="daySelect" onchange="renderWorkout()"></select><div id="workoutList"></div><button class="secondary" onclick="finishWorkout()">Valider cette séance</button></div>
+ <div class="card"><h2>Repère de séance</h2><p>Échauffement 5–10 min, mouvements contrôlés, 2 séries au départ puis 3 si la récupération est bonne. Garde 2–3 répétitions « en réserve » et arrête si douleur inhabituelle.</p></div>
+</section>
+<section id="nutrition" class="view">
+ <h1>Nutrition</h1><p>Objectif de départ indicatif : 2 200 kcal / jour.</p>
+ <div class="card"><div class="between"><h2>Résumé du jour</h2><span id="dateLabel" class="muted"></span></div><div class="big"><span id="kcalTotal">0</span><span class="muted" style="font-size:15px"> / 2 200 kcal</span></div><div class="progress"><i id="kcalBar" style="width:0%"></i></div><div class="grid"><div class="stat"><span class="muted">Protéines</span><strong id="pTotal">0 g</strong><span class="muted">Cible 160 g</span></div><div class="stat"><span class="muted">Glucides</span><strong id="cTotal">0 g</strong><span class="muted">Repère 230 g</span></div><div class="stat"><span class="muted">Lipides</span><strong id="fTotal">0 g</strong><span class="muted">Repère 69 g</span></div><div class="stat"><span class="muted">Repas</span><strong id="mealCount">0</strong></div></div></div>
+ <div class="card"><h2>Ajouter un aliment / repas</h2><label>Nom</label><input id="foodName" placeholder="Ex. Poulet, riz, skyr"><div class="row"><div><label>Calories</label><input id="foodKcal" type="number" min="0" placeholder="kcal"></div><div><label>Protéines (g)</label><input id="foodP" type="number" min="0" placeholder="g"></div></div><div class="row"><div><label>Glucides (g)</label><input id="foodC" type="number" min="0" placeholder="g"></div><div><label>Lipides (g)</label><input id="foodF" type="number" min="0" placeholder="g"></div></div><button onclick="addFood()">Enregistrer</button></div>
+ <div class="card"><h2>Journal du jour</h2><div id="foodList" class="empty">Aucun aliment enregistré aujourd'hui.</div></div>
+</section>
+<section id="progress" class="view">
+ <h1>Progression</h1><p>Observe la tendance, pas les variations d'une seule journée.</p>
+ <div class="card"><h2>Enregistrer ton poids</h2><label>Poids (kg)</label><input id="weightInput" type="number" min="30" max="300" step=".1" placeholder="Ex. 90.0"><button onclick="addWeight()">Enregistrer mon poids</button></div>
+ <div class="grid"><div class="stat"><span class="muted">Dernier poids</span><strong id="lastWeight">— kg</strong></div><div class="stat"><span class="muted">Évolution depuis départ</span><strong id="weightChange">0 kg</strong></div></div>
+ <div class="card"><h2>Historique</h2><div id="weightList" class="empty">Aucune pesée enregistrée.</div></div>
+ <div class="card"><h2>Objectif</h2><p>Vise une évolution progressive. Une fourchette souvent raisonnable est d'environ 0,5 à 0,8 kg par semaine, à adapter avec un professionnel de santé et selon ta récupération.</p></div>
+</section>
+<section id="coach" class="view">
+ <h1>Coach IRON CUT</h1><p>Conseils guidés pour organiser tes habitudes. Cette version fonctionne sans service IA externe.</p>
+ <div class="card"><span class="pill">Coach de démarrage</span><h2>Ton profil</h2><p>Profil personnel à compléter directement sur cet appareil.</p><p><b>Repères provisoires :</b> 2 200 kcal et 160 g de protéines par jour. Ce sont des estimations à réévaluer après 2–3 semaines selon la tendance du poids, la faim, l'énergie et les performances.</p></div>
+ <div class="card"><h2>Que veux-tu travailler ?</h2><div id="coachAnswers"></div><label>Ta question</label><input id="coachQuestion" placeholder="Ex. Comment organiser mon dîner ?"><button onclick="askCoach()">Demander un conseil</button><div id="coachReply" class="item" style="margin-top:12px">Choisis une question ou écris la tienne.</div></div>
+ <div class="card"><h2>Important</h2><p>Le coach fournit des conseils généraux, pas un diagnostic ni un suivi médical. En cas de maladie, traitement, douleur ou antécédent, demande conseil à un professionnel de santé avant de modifier fortement ton alimentation ou ton activité.</p></div>
+</section>
+<footer>IRON CUT · Données enregistrées sur cet appareil</footer>
+</main>
+<nav>
+<button class="active" data-tab="home" onclick="show('home')"><b>⌂</b>Accueil</button>
+<button data-tab="training" onclick="show('training')"><b>▣</b>Sport</button>
+<button data-tab="nutrition" onclick="show('nutrition')"><b>♨</b>Nutrition</button>
+<button data-tab="progress" onclick="show('progress')"><b>↗</b>Suivi</button>
+<button data-tab="coach" onclick="show('coach')"><b>✦</b>Coach</button>
+</nav>
+<script>
+const KEY='ironcut_v1';
+const initial={foods:{},weights:[],completed:[],startWeight:null};
+let data=load();
+function load(){try{return {...initial,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return {...initial}}}
+function save(){localStorage.setItem(KEY,JSON.stringify(data));refresh()}
+function today(){return new Date().toISOString().slice(0,10)}
+function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));if(id==='training')renderWorkout();if(id==='nutrition')renderNutrition();if(id==='progress')renderProgress();if(id==='home')renderHome()}
+const plan=[
+ {day:'Lundi',name:'Haut du corps A',items:['Presse poitrine machine · 2×10–12','Tirage vertical · 2×10–12','Rowing assis · 2×10–12','Développé épaules machine · 2×10','Marche facile · 10 min']},
+ {day:'Mardi',name:'Cardio + mobilité',items:['Vélo ou marche · 20–30 min à allure confortable','Mobilité douce · 5–10 min']},
+ {day:'Mercredi',name:'Bas du corps',items:['Presse à cuisses · 2×10–12','Leg curl · 2×10–12','Extension quadriceps · 2×10–12','Mollets machine · 2×12–15','Gainage adapté · 2 séries']},
+ {day:'Jeudi',name:'Récupération',items:['Repos ou marche tranquille · 20 min']},
+ {day:'Vendredi',name:'Haut du corps B',items:['Développé incliné machine · 2×10–12','Tirage horizontal · 2×10–12','Tirage vertical prise neutre · 2×10–12','Élévations latérales légères · 2×12','Vélo facile · 10 min']},
+ {day:'Samedi',name:'Cardio + circuit léger',items:['Marche ou vélo · 25–35 min','Circuit technique léger · 1–2 tours facultatifs']},
+ {day:'Dimanche',name:'Repos',items:['Repos et récupération']}
+];
+function setup(){let s=document.getElementById('daySelect');s.innerHTML=plan.map((p,i)=>`<option value="${i}">${p.day} — ${p.name}</option>`).join('');document.getElementById('dateLabel').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});document.getElementById('coachAnswers').innerHTML=['Comment composer une assiette équilibrée ?','Comment débuter le cardio ?','Comment progresser sans me blesser ?','Que faire si mon poids stagne ?'].map(q=>`<div class="item"><button class="secondary smallbtn" onclick="preset('${q.replace(/'/g,"\\'")}')">${q}</button></div>`).join('');refresh()}
+function renderWorkout(){let i=Number(document.getElementById('daySelect').value||0),p=plan[i];document.getElementById('workoutList').innerHTML=`<h2>${p.name}</h2>${p.items.map(x=>`<div class="item">• ${x}</div>`).join('')}<p class="muted">${data.completed.includes(p.day)?'Séance validée ✓':'Coche la séance une fois terminée.'}</p>`}
+function finishWorkout(){let p=plan[Number(document.getElementById('daySelect').value||0)];if(!data.completed.includes(p.day))data.completed.push(p.day);save();renderWorkout()}
+function dayFoods(){return data.foods[today()]||[]}
+function addFood(){let name=document.getElementById('foodName').value.trim(),k=Number(document.getElementById('foodKcal').value),p=Number(document.getElementById('foodP').value||0),c=Number(document.getElementById('foodC').value||0),f=Number(document.getElementById('foodF').value||0);if(!name||!Number.isFinite(k)||k<0){alert('Ajoute un nom et des calories valides.');return}data.foods[today()]=dayFoods().concat([{name,k,p,c,f}]);['foodName','foodKcal','foodP','foodC','foodF'].forEach(id=>document.getElementById(id).value='');save()}
+function renderNutrition(){let a=dayFoods(),sum=k=>a.reduce((s,x)=>s+(Number(x[k])||0),0),k=sum('k'),p=sum('p'),c=sum('c'),f=sum('f');document.getElementById('kcalTotal').textContent=Math.round(k);document.getElementById('pTotal').textContent=Math.round(p)+' g';document.getElementById('cTotal').textContent=Math.round(c)+' g';document.getElementById('fTotal').textContent=Math.round(f)+' g';document.getElementById('mealCount').textContent=a.length;document.getElementById('kcalBar').style.width=Math.min(k/2200*100,100)+'%';document.getElementById('foodList').className=a.length?'':'empty';document.getElementById('foodList').innerHTML=a.length?a.map((x,i)=>`<div class="item between"><div><b>${esc(x.name)}</b><div class="muted">${x.k} kcal · P ${x.p} g · G ${x.c} g · L ${x.f} g</div></div><button class="ghost smallbtn" onclick="removeFood(${i})">Retirer</button></div>`).join(''):'Aucun aliment enregistré aujourd’hui.'}
+function removeFood(i){data.foods[today()].splice(i,1);save()}
+function addWeight(){let v=Number(document.getElementById('weightInput').value);if(!v||v<30||v>300){alert('Entre un poids valide en kg.');return}data.weights.push({date:today(),value:v});document.getElementById('weightInput').value='';save()}
+function renderProgress(){let w=data.weights.slice().sort((a,b)=>a.date.localeCompare(b.date)),last=w[w.length-1]?.value??null;document.getElementById('lastWeight').textContent=(last??'—')+' kg';let base=data.startWeight??w[0]?.value??null;document.getElementById('weightChange').textContent=(last!==null&&base!==null?((last-base>0?'+':'')+(last-base).toFixed(1)+' kg'):'—');document.getElementById('weightList').className=w.length?'':'empty';document.getElementById('weightList').innerHTML=w.length?w.slice().reverse().map(x=>`<div class="item between"><span>${new Date(x.date+'T12:00:00').toLocaleDateString('fr-FR')}</span><b>${x.value} kg</b></div>`).join(''):'Aucune pesée enregistrée.'}
+function preset(q){document.getElementById('coachQuestion').value=q;askCoach()}
+function askCoach(){let q=document.getElementById('coachQuestion').value.trim().toLowerCase(),r='';if(!q){r='Écris une question pour recevoir un conseil.'}else if(q.includes('assiette')||q.includes('repas')||q.includes('dîner'))r='Construis ton assiette autour d’une source de protéines (poisson, œufs, poulet, tofu ou légumineuses), de légumes, d’une portion de féculents et d’un peu de matière grasse. Ajuste les quantités à ta faim et à ton objectif.';else if(q.includes('cardio'))r='Commence par 20 minutes de marche ou de vélo à une intensité où tu peux encore parler. Augmente de 5 minutes lorsque tu récupères bien. Le cardio doit compléter la musculation, pas t’épuiser.';else if(q.includes('blesser')||q.includes('progresser'))r='Privilégie une amplitude confortable, un mouvement contrôlé et une charge qui te laisse 2 à 3 répétitions en réserve. Demande à un coach en salle de vérifier ta technique et arrête en cas de douleur.';else if(q.includes('stagne')||q.includes('poids'))r='Vérifie la tendance de tes pesées sur 2 à 3 semaines, dans des conditions similaires. Le poids varie avec l’eau, le sel et la digestion. Regarde aussi le tour de taille et tes performances avant de modifier tes apports.';else r='Je peux t’aider sur les bases de l’entraînement, de l’alimentation et de la récupération. Pour une réponse plus ciblée, précise ton contexte et tes habitudes. Cette version est un coach guidé, pas une IA connectée.';document.getElementById('coachReply').textContent=r}
+function renderHome(){let a=dayFoods(),k=a.reduce((s,x)=>s+x.k,0),p=a.reduce((s,x)=>s+x.p,0),last=data.weights.slice().sort((a,b)=>a.date.localeCompare(b.date)).at(-1)?.value??null;document.getElementById('homeKcal').textContent=Math.round(k)+' / 2 200 kcal';document.getElementById('homeBar').style.width=Math.min(k/2200*100,100)+'%';document.getElementById('homeProtein').textContent=Math.round(p)+' g';document.getElementById('homeWeight').textContent=(last??'—')+' kg';document.getElementById('homeSessions').textContent=data.completed.length+' / 5';document.getElementById('homePlan').innerHTML=plan.filter(x=>!['Jeudi','Dimanche'].includes(x.day)).map(x=>`<div class="item between"><span>${x.day} · ${x.name}</span><span>${data.completed.includes(x.day)?'✓':'○'}</span></div>`).join('')}
+function refresh(){renderNutrition();renderProgress();renderHome();if(document.getElementById('training').classList.contains('active'))renderWorkout()}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+setup();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
